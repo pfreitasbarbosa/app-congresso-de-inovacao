@@ -15,6 +15,10 @@ O escopo do problema abrange a competência técnica dos estudantes, viabilizand
 
 O projeto tem como objetivo trazer mais praticidade às pessoas interessadas em participar dos workshops e palestras do Congresso de Inovação da FEI, fornecendo informações adicionais acerca do evento, para que pessoas novas na área possam escolher as apresentações de acordo com sua área de interesse.
 
-## Modelagem de Software
+## Equipe
 
-Adotou-se o modelo Incremental para a construção do produto. A adoção desse modelo justifica-se pois a equipe prevê que novas funcionalidades serão adicionadas constantemente e devem ser apreciadas pelo cliente afim de obter um feedback contínuo.
+A condução do desenvolvimento seguirá a linha ágil do SCRUM, contando com os membros:
+
+- <strong>Product Owner - </strong> Pedro Barbosa
+- <strong>Scrum Master - </strong> Rafael Palierini
+- <strong>Dev Team - </strong> Andy Barbosa, Rubens Mendes e Vitor Costa
