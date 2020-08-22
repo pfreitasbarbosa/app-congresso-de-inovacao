@@ -22,3 +22,28 @@ A condução do desenvolvimento seguirá a linha ágil do SCRUM, contando com os
 - <strong>Product Owner - </strong> Pedro Barbosa
 - <strong>Scrum Master - </strong> Rafael Palierini
 - <strong>Dev Team - </strong> Andy Barbosa, Rubens Mendes e Vitor Costa
+
+## Funcionalidades
+
+### Requisitos funcionais
+
+- [ ] Cadastro e login do usuário
+- [ ] Listagem de palestras, painéis e oficinas
+- [ ] Gestão de cadastro em palestras, painéis e oficinas
+- [ ] Confirmação de presença no evento cadastrado
+- [ ] Categorizar os eventos por área de interesse
+
+### Requisitos não funcionais
+
+- [ ] Usar a biblioteca React Native para construir a aplicação móvel
+- [ ] Utilizar Node.js para a construção da API
+- [ ] Utilizar JWT para controle de sessões
+- [ ] Usar o banco de dados relacional PostgreSQL em um container (docker)
+
+### Regras de negócio
+
+- O cadastro em eventos só é possível caso haja vagas
+- A sessão do usuário expira em 3 dias (duração do evento)
+- A contagem de vagas é feita utilizando presenças confirmadas em cada evento
+- O usuário deve confirmar a presença antes do tempo limite (10 minutos antes do início)
+- No tempo limite, qualquer usuário pode se cadastrar/confirmar a presença enquanto houver vagas no evento
