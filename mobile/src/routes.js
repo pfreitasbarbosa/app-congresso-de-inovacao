@@ -7,7 +7,7 @@ import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
 import Feed from './pages/feed';
 
 const StackPages = createStackNavigator(); //StackNavigator
-const BottomTab = createBottomTabNavigator(); //BottomTabs
+const Tab = createBottomTabNavigator(); //BottomTabs
 
 export default function Routes(){
     return(

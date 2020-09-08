@@ -1,31 +1,60 @@
-import React, {useState} from 'react';
-import { View, Text } from 'react-native';
-import { AppLoading } from 'expo';
-import * as Font from 'expo-font';
+import {View, ScrollView} from 'react-native';
+import React from 'react'
 
+import globalStyles from '../../../globalStyles'
+import styles from '../feed/styles'
+import SearchBar from '../../../assets/components/searchBar'
+import EventCard from '../../../assets/components/eventCard'
 
-//Load custom fonts for application.
-const getFonts = () => Font.loadAsync({
-    'Roboto-Bold': require('../../../assets/fonts/Roboto-Bold.ttf'),
-    'Roboto-Regular': require('../../../assets/fonts/Roboto-Regular.ttf')
-  });
-  
-  export default function Feed() {
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-  
-    if(fontsLoaded){
-      return ( 
-        <View>
-          <Text style={{fontFamily: 'Roboto-Bold'}}>First Screen</Text>
-        </View>
-      );
-    }
-    else{
-      return(
-        <AppLoading
-            startAsync={getFonts}
-            onFinish={()=> setFontsLoaded(true)}
-        />
-      );
-    }
+export default class Feed extends React.Component {
+  constructor(props){
+    super(props);
   }
+  render(){
+    return(
+      <View style = {globalStyles.container}>
+        <SearchBar></SearchBar>
+        <ScrollView>
+          <View style={styles.eventsContainer}>
+          <EventCard 
+              eventType="Palestra"
+              eventDate="16/10 - 10:00"
+              eventName="Revolução da IA, Mudanças no mundo"
+              eventLocal="Auditório Principal - Prédio A"
+          ></EventCard>
+          <EventCard 
+              eventType="Palestra"
+              eventDate="16/10 - 10:00"
+              eventName="Revolução da IA, Mudanças no mundo"
+              eventLocal="Auditório Principal - Prédio A"
+          ></EventCard>
+          <EventCard 
+              eventType="Palestra"
+              eventDate="16/10 - 10:00"
+              eventName="Revolução da IA, Mudanças no mundo"
+              eventLocal="Auditório Principal - Prédio A"
+          ></EventCard>
+          <EventCard 
+              eventType="Palestra"
+              eventDate="16/10 - 10:00"
+              eventName="Revolução da IA, Mudanças no mundo"
+              eventLocal="Auditório Principal - Prédio A"
+          ></EventCard>
+          <EventCard 
+              eventType="Palestra"
+              eventDate="16/10 - 10:00"
+              eventName="Revolução da IA, Mudanças no mundo"
+              eventLocal="Auditório Principal - Prédio A"
+          ></EventCard>
+          <EventCard 
+              eventType="Palestra"
+              eventDate="16/10 - 10:00"
+              eventName="Revolução da IA, Mudanças no mundo"
+              eventLocal="Auditório Principal - Prédio A"
+          ></EventCard>
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
+}
