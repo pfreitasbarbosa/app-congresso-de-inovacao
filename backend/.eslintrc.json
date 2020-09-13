@@ -1,7 +1,8 @@
 {
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": [
     "airbnb-base",
@@ -22,6 +23,13 @@
   "rules": {
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
+    "import/no-mutable-exports": "off",
+    "class-methods-use-this": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/*.spec.ts"] }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
