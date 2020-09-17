@@ -1,13 +1,14 @@
+require('react-native').unstable_enableLogBox();
 import React, {useState} from 'react';
 import {} from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 
-import Routes from './src/routes';
+import {RouteLogin,RouteFeed} from './src/routes';
 
 const getFonts = () => Font.loadAsync({
     'OpenSans-SemiBold': require('./assets/fonts/OpenSans-SemiBold.ttf'),
-    'OpenSans-Regular': require('./assets/fonts/OpenSans-Regular.ttf')
+    'OpenSans-Regular': require('./assets/fonts/OpenSans-Regular.ttf'),
 });
 
 export default function App() {
@@ -15,7 +16,7 @@ export default function App() {
 
   if(fontsLoaded){
     return ( 
-      <Routes /> 
+      <RouteLogin /> 
     );
   }
   else{
