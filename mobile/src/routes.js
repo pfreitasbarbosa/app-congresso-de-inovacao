@@ -7,6 +7,7 @@ import { Feather } from '@expo/vector-icons';
 //      Pages     \\
 import Feed from './pages/feed';
 import Login from './pages/login';
+import Loading from './pages/loading';
 
 const StackPages = createStackNavigator(); 
 const Tab = createBottomTabNavigator(); //BottomTabs
@@ -16,11 +17,17 @@ export function RouteLogin(){
         //Allow navigation between pages.
         <NavigationContainer >
             <StackPages.Navigator initialRouteName={"Login"}>
-            <StackPages.Screen
+                <StackPages.Screen
                     options={{
                         headerShown: false
                     }}
                     name="Login" component={Login}
+                />
+                <StackPages.Screen
+                    options={{
+                        headerShown: false
+                    }}
+                    name="Loading" component={Loading}
                 />
                 <StackPages.Screen 
                     options={{

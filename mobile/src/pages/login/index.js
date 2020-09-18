@@ -14,7 +14,7 @@ export default class Login extends React.Component {
   }
 
   navigateToFeed(){
-    this.props.navigation.navigate('Feed', { screen: 'Feed' });
+    this.props.navigation.navigate('Loading');
   }
 
   render(){
@@ -26,18 +26,17 @@ export default class Login extends React.Component {
             source={logo}/>
           <View style={styles.formStyle}>
             <Text style={styles.inputHeader}>Usuário</Text>
-            <TextInput style={styles.inputStyle}/>
-
+            <TextInput style={[styles.inputStyle,{fontFamily: 'Sofia-Light'}]}/>
             <Text style={styles.inputHeader}>Senha</Text>
-            <TextInput secureTextEntry={true} style={styles.inputStyle}/>
-          
+            <TextInput 
+            style={[styles.inputStyle,{fontFamily: 'Sofia-Bold'}]}
+            secureTextEntry={true}/>
             <TouchableOpacity 
             style={styles.confirmButton}
             onPress={this.navigateToFeed}>
               <Text style={{color: '#FFF', fontWeight: 'bold'}}>Entrar</Text>
             </TouchableOpacity>
           </View>
-          
         </View>
       </SafeAreaView>
     );
