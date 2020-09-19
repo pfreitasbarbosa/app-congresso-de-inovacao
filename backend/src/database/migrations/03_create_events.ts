@@ -3,6 +3,7 @@ import Knex from 'knex';
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('events', table => {
     table.increments('id').primary();
+    table.string('type').notNullable();
     table.string('name').notNullable();
     table.string('description');
     table.timestamp('start_time').notNullable();
