@@ -1,6 +1,7 @@
 # API Documentation
 
 - [Login](#login)
+- [Event listing](#event-listing)
 
 ## Login
 
@@ -38,5 +39,49 @@
 ```json
 {
   "error": "Incorrect email/password combination"
+}
+```
+
+## Event listing
+
+**HTTP method:** `GET`
+
+**Endpoint:** `/events`
+
+**Description:** Endpoint used to list all registered events. The user must provide the authentication token to access the endpoint, no request body is necessary.
+
+### Successful Response (`200 OK`):
+
+```json
+[
+  {
+    "id": 1,
+    "type": "Palestra",
+    "name": "Visões de Futuro – Nossa Vida Pessoal com IA",
+    "description": null,
+    "start_time": "2020-10-16T17:00:00.000Z",
+    "location": "Auditório Principal - Prédio A",
+    "speakers": [
+      {
+        "name": "Fulano da Silva",
+        "email": "fulano@fei.edu.br",
+        "linkedin_url": "https://www.linkedin.com/in/fulano/",
+        "lattes_url": "http://lattes.cnpq.br/24642367243562"
+      }
+    ],
+    "categories": [
+      "Ciência da Computação",
+      "Administração",
+      "Engenharia Elétrica"
+    ]
+  }
+]
+```
+
+### Failed Response (`401 Unauthorized`):
+
+```json
+{
+  "error": "Invalid token"
 }
 ```
