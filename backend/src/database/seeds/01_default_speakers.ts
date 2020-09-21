@@ -11,7 +11,7 @@ export async function seed(knex: Knex): Promise<void> {
     {
       id: 2,
       name: 'Guilherme Wachs',
-      email: 'gwachs.edu.br',
+      email: 'gwachs@fei.edu.br',
       linkedin_url:
         'https://www.linkedin.com/in/guilherme-wachs-lopes-b5a01446',
       lattes_url: 'http://lattes.cnpq.br/4456728413230670',
@@ -19,7 +19,7 @@ export async function seed(knex: Knex): Promise<void> {
     {
       id: 3,
       name: 'Gustavo Donato',
-      email: 'gdonato.edu.br',
+      email: 'gdonato@fei.edu.br',
       linkedin_url: 'https://www.linkedin.com/in/prof-gustavo-donato/',
       lattes_url: 'http://lattes.cnpq.br/4230969931642680',
     },
