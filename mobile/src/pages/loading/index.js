@@ -1,6 +1,12 @@
 import React from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, Text, SafeAreaView,
+         Image } from 'react-native';
 
+import globalStyles from '../../../globalStyles';
+import styles from '../loading/styles';
+import logo from '../../../assets/feilogo.png';
+
+import CircularProgress from '../../../assets/components/circularProgress';
 
 class Loading extends React.Component {
     constructor(props) {
@@ -27,14 +33,21 @@ class Loading extends React.Component {
 
     render() {
         return (
-            <SafeAreaView>
+            <SafeAreaView style={globalStyles.container}>
                 <View>
-                    <Text>CARREGANDO</Text>
+                    <Image 
+                    style={styles.logoStyle}
+                    source={logo}/>
+                    <View style={styles.circularProgressPositioning}>
+                        <CircularProgress/>
+                    </View>
                 </View>
             </SafeAreaView>
         );
                 
     }
 }
+
+
 
 export default Loading;
