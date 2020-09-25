@@ -34,13 +34,11 @@ class Loading extends React.Component {
     render() {
         return (
             <SafeAreaView style={globalStyles.container}>
-                <View>
+                <View style={styles.container}>
                     <Image 
                     style={styles.logoStyle}
                     source={logo}/>
-                    <View style={styles.circularProgressPositioning}>
-                        <CircularProgress/>
-                    </View>
+                    <CircularProgress/>
                 </View>
             </SafeAreaView>
         );
