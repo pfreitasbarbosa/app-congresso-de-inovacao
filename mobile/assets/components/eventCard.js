@@ -17,7 +17,7 @@ export default class EventCard extends React.Component{
                 <Text style={styles.eventType}>{this.props.eventType}</Text>
                 <Text style={styles.eventDate}>{this.props.eventDate}</Text>
             </View>
-            <Text style={styles.eventDate}>{this.props.eventName}</Text>
+            <Text style={styles.eventDescription}>{this.props.eventName}</Text>
             <Text style={styles.eventLocal}>{this.props.eventLocal}</Text>
          </View>
     );
@@ -28,31 +28,44 @@ const styles = StyleSheet.create({
     cardContainer:{
         flexDirection: "column",
         justifyContent: "space-between",
-        backgroundColor: '#F8F8F8',
+        backgroundColor: '#FFF',
         width: windowWidth*.92,
-        height: windowHeight*.15,
-        padding: "3%",
+        height: "auto",
+        minHeight: windowHeight*.15,
         marginTop: "3%",
-        borderRadius: 4,
+        borderRadius: 7,
+        overflow: "hidden",
       },
     cardHeader:{
         flexDirection: "row",
         justifyContent: "space-between",
+        backgroundColor: "#FD3155",
+        paddingHorizontal: "3%",
+        paddingVertical:"1.8%",
     },
     eventType:{
         fontSize: 14,
         fontFamily: "OpenSans-SemiBold",
-        color: "#101838",
+        color: "#FFF",
     },
     eventDate:{
         fontSize: 14,
         fontFamily: "OpenSans-Regular",
-        color: "#000000",
+        color: "#FFF",
+    },
+    eventDescription:{
+      fontSize: 14,
+      fontFamily: "OpenSans-Regular",
+      color: "#000000",
+      padding: "2%",
+
     },
     eventLocal:{
-        fontSize: 14,
-        fontFamily: "OpenSans-SemiBold",
-        color: "#EF0432",
+      fontSize: 14,
+      fontFamily: "OpenSans-SemiBold",
+      color: "#FF5A7B",
+      paddingHorizontal: "2%",
+      paddingVertical: "1%",
     }
 });
   

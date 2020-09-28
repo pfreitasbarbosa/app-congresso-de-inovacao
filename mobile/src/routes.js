@@ -48,16 +48,16 @@ export function RouteFeed(){
                 iconName= "map"
               
               // You can return any component that you like here!
-              return <Feather name={iconName} size={20} color={"#F8F8F8"} />;
+              return <Feather name={iconName} size={20} color={"#FFF"} />;
             },
           })}
         tabBarOptions={{
             activeTintColor: 'white',
             inactiveTintColor: 'white',
-            style: {backgroundColor: '#FF2C55', 
+            style: {backgroundColor: '#FD3155', 
                     height: "8%", 
                     paddingHorizontal: "1%",
-                    paddingBottom: "0.8%"},
+                    paddingBottom: "0.8%",},
             labelStyle: {
                 fontSize: 12,
             },

@@ -5,7 +5,7 @@ export default StyleSheet.create({
     container: {
         backgroundColor: '#101838',
         flex: 1,
-        paddingTop : Constants.statusBarHeight + 5,
+        paddingTop : Constants.statusBarHeight,
         flexDirection: 'column',
         justifyContent: 'flex-start',
     },

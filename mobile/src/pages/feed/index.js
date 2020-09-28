@@ -10,11 +10,13 @@ export default class Feed extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+        userName: "DANILÃO DAME DAME",
+        courseName: "Ciência da Computação",
         eventData: [
           {
-            eventType: "Palestra",
+            eventType: "Nome da Palestra",
             eventDate: "16/10 - 10:00",
-            eventName: "Revolução da IA, Mudanças no mundo",
+            eventName: "Revolução da IA, Mudanças no mundoRevolução da IA, Mudanças no mundoRevolução da IA, Mudanças no mundoMudanças no mundoRevolução da IA, Mudanças no mundo",
             eventLocal: "Auditório Principal - Prédio A",
           },
           {
@@ -56,19 +58,20 @@ export default class Feed extends React.Component {
         ]
     }
   }
-
   
   render(){
     return(
       <View style = {globalStyles.container}>
-        <SearchBar></SearchBar>
+        <SearchBar
+          userName={this.state.userName}
+          courseName={this.state.courseName}
+        ></SearchBar>
         <View style={styles.eventsContainer}>
           <FlatList
             contentContainerStyle={styles.cardContainer}
             data={this.state.eventData}
-            //data defined in constructor
+        
             renderItem={({ item }) => (
-              // Single Comes here which will be repeatative for the FlatListItems
               <EventCard
                 eventType={item.eventType}
                 eventDate={item.eventDate}
