@@ -1,5 +1,9 @@
 import db from '../database/connection';
 
+interface Request {
+  id?: number;
+}
+
 interface Event {
   id: number;
   name: string;
@@ -47,9 +51,21 @@ interface Response {
   categories: string[];
 }
 
-class AuthenticateUserService {
-  public async execute(): Promise<Response[]> {
-    const events = await db.select().from<Event>('events');
+class ListEventsService {
+  public async execute(payload?: Request): Promise<Response[]> {
+    let events: Event[];
+
+    if (payload && payload.id) {
+      events = await db.select().from<Event>('events').where({
+        id: payload.id,
+      });
+    } else {
+      events = await db.select().from<Event>('events');
+    }
+
+    if (events.length === 0) {
+      throw new Error('No event was found');
+    }
 
     const eventIds = events.map(event => event.id);
     const speakers = await db
@@ -112,4 +128,4 @@ class AuthenticateUserService {
   }
 }
 
-export default AuthenticateUserService;
+export default ListEventsService;
