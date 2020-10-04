@@ -8,6 +8,7 @@
     "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
     "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback",
+    "knex:migrate:rollback:all": "knex --knexfile knexfile.ts migrate:rollback --all",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
     "pretest": "rm -f src/database/database.sqlite && NODE_ENV=test knex --knexfile knexfile.ts migrate:latest && NODE_ENV=test knex --knexfile knexfile.ts seed:run",
     "test": "NODE_ENV=test jest --runInBand --forceExit"
