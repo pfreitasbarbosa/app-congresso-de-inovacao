@@ -18,5 +18,9 @@ export async function seed(knex: Knex): Promise<void> {
       event_id: 3,
       speaker_id: 1,
     },
+    {
+      event_id: 4,
+      speaker_id: 2,
+    },
   ]);
 }

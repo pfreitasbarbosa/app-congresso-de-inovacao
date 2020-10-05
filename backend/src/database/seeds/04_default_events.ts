@@ -28,5 +28,15 @@ export async function seed(knex: Knex): Promise<void> {
       end_time: new Date(2020, 10, 18, 20, 30, 0, 0),
       location: 'K2-10 - Prédio K',
     },
+    {
+      id: 4,
+      type: 'Oficina',
+      name: 'Introdução ao C++ e à Orientação à Objetos',
+      description:
+        'Os tópicos abordados serão: classes, objetos, atributos, métodos, encapsulamento e polimorfismo utilizando a linguagem de programação Java.',
+      start_time: new Date(2020, 10, 18, 17, 30, 0, 0),
+      end_time: new Date(2020, 10, 18, 21, 0, 0, 0),
+      location: 'K2-09 - Prédio K',
+    },
   ]);
 }
