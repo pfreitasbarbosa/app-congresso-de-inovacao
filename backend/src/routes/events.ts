@@ -18,4 +18,6 @@ eventsRouter.get('/', async (request, response) => {
 
 eventsRouter.post('/subscribe/:id', eventSubscriptionController.store);
 
+eventsRouter.post('/unsubscribe/:id', eventSubscriptionController.remove);
+
 export default eventsRouter;
