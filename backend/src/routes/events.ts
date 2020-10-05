@@ -11,7 +11,7 @@ const eventSubscriptionController = new EventSubscriptionController();
 eventsRouter.get('/', async (request, response) => {
   const listEventsService = new ListEventsService();
 
-  const events = await listEventsService.execute();
+  const events = await listEventsService.execute({ userId: request.user.id });
 
   return response.json(events);
 });
