@@ -38,5 +38,13 @@ export async function seed(knex: Knex): Promise<void> {
       end_time: new Date(2020, 10, 18, 21, 0, 0, 0),
       location: 'K2-09 - Prédio K',
     },
+    {
+      id: 5,
+      type: 'Oficina',
+      name: 'Introdução ao desenvolvimento de algoritmos com Python',
+      start_time: new Date(2019, 10, 18, 17, 30, 0, 0),
+      end_time: new Date(2019, 10, 18, 21, 0, 0, 0),
+      location: 'K2-10 - Prédio K',
+    },
   ]);
 }

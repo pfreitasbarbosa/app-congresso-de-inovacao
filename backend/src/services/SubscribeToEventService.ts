@@ -1,4 +1,4 @@
-import { areIntervalsOverlapping } from 'date-fns';
+import { areIntervalsOverlapping, isAfter } from 'date-fns';
 
 import db from '../database/connection';
 
@@ -15,6 +15,7 @@ interface Event {
   name: string;
   description: string;
   start_time: Date;
+  end_time: Date;
   location: string;
 }
 
@@ -29,6 +30,19 @@ interface Response {
 
 class SubscribeToEventService {
   public async execute({ userId, eventId }: Request): Promise<Response> {
+    const [eventExists = undefined] = await db
+      .select()
+      .from<Event>('events')
+      .where('id', eventId);
+
+    if (!eventExists) {
+      throw new Error('There is no event with provided id');
+    }
+
+    if (isAfter(new Date(), eventExists.end_time)) {
+      throw new Error("Can't subscribe to a past event");
+    }
+
     const alreadySubscribed = await db
       .select()
       .from<Subscription>('events_subscriptions')

@@ -22,6 +22,22 @@ describe('Event subscription', () => {
     expect(response.body).toHaveProperty('error');
   });
 
+  it('should not be able to subscribe to a non existing event', async () => {
+    const authResponse = await request(app).post('/sessions').send({
+      username: 'unifulano',
+      password: '123456',
+    });
+
+    const { token } = authResponse.body as AuthenticationResponse;
+
+    const response = await request(app)
+      .post('/events/subscribe/-200')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('error');
+  });
+
   it('should be able to subscribe to an event', async () => {
     const authResponse = await request(app).post('/sessions').send({
       username: 'unifulano',
@@ -75,5 +91,18 @@ describe('Event subscription', () => {
 
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty('error');
+  });
+
+  it('should not be able to subscribe to a past event', async () => {
+    const authResponse = await request(app).post('/sessions').send({
+      username: 'unicicrano',
+      password: '123456',
+    });
+
+    const { token } = authResponse.body as AuthenticationResponse;
+
+    await request(app)
+      .post('/events/subscribe/5')
+      .set('Authorization', `Bearer ${token}`);
   });
 });
