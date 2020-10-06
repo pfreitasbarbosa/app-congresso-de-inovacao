@@ -5,11 +5,6 @@ const windowHeight = Dimensions.get("window").height;
 
 const Theme = StyleSheet.create(
     {
-    container:{
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center'
-    },  
     logoStyle:{
       alignSelf: 'center',
       width: windowWidth*.3,

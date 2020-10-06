@@ -1,51 +1,50 @@
-import React from 'react';
-import { View, Text, SafeAreaView,
-         Image } from 'react-native';
+import React, { Component } from "react";
+import { View, Image} from 'react-native';
 
-import globalStyles from '../../../globalStyles';
-import styles from '../loading/styles';
-import logo from '../../../assets/feilogo.png';
+//Loading animation
+import LottieView from 'lottie-react-native';
+import lottieAnimation from "../../../assets/components/loading.json"; 
 
-import CircularProgress from '../../../assets/components/circularProgress';
+//Persistent data with AsyncStorage
+import AsyncStorage from '@react-native-community/async-storage';
 
-class Loading extends React.Component {
-    constructor(props) {
-        super();
-        this.state = {
-            tempo:false
-        }
+//Style and images
+import globalStyles from "../../../globalStyles";
+import FeiLogo from "../../../assets/feilogo.png";
+import styles from "../loading/styles";
+
+export default class Loading extends Component{
+    constructor(props){
+        super()
+        this.getUserToken = this.getUserToken.bind(this);
         this.navigateToFeed = this.navigateToFeed.bind(this);
+        this.getUserToken();
     }  
 
     navigateToFeed(){
         this.props.navigation.navigate('Feed', { screen: 'Feed' });
     }
 
-    componentDidMount(){
-        this.timeoutHandle = setTimeout(()=>{
-            this.navigateToFeed()
-        }, 5000);
-   }
+    getUserToken = async() =>{
+        try{
+            const userToken = await AsyncStorage.getItem('@UserToken');
+            if(userToken != null){ //User already been authenticated and have a token
+                this.navigateToFeed();
+            }
+        } catch(e){
+            console.log(e);
+        }
+    }  
 
-   componentWillUnmount(){
-        clearTimeout(this.timeoutHandle); 
-   }
-
-    render() {
-        return (
-            <SafeAreaView style={globalStyles.container}>
-                <View style={styles.container}>
-                    <Image 
-                    style={styles.logoStyle}
-                    source={logo}/>
-                    <CircularProgress/>
-                </View>
-            </SafeAreaView>
+   render(){
+        return(
+            <View style={[globalStyles.container]}>
+                <Image
+                source={FeiLogo}
+                style={styles.logoStyle}
+                />
+                <LottieView source={lottieAnimation} autoPlay loop/>
+            </View>
         );
-                
     }
 }
-
-
-
-export default Loading;

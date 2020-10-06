@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 //      Pages     \\
 import Feed from './pages/feed';
@@ -12,11 +13,22 @@ import Loading from './pages/loading';
 const StackPages = createStackNavigator(); 
 const Tab = createBottomTabNavigator(); //BottomTabs
 
+
+let usrToken = null;
+//Async function to check if user already login once.
+loadAccessToken = async () => {
+    const token = await AsyncStorage.getItem('@UserToken');;
+    usrToken = token;
+}
+loadAccessToken();
+
+
 export function RouteLogin(){
+    console.log(usrToken);
     return(
         //Allow navigation between pages.
         <NavigationContainer >
-            <StackPages.Navigator initialRouteName={"Login"}>
+            <StackPages.Navigator initialRouteName={(usrToken!=null)?"Loading":"Login"}>
                 <StackPages.Screen
                     options={{
                         headerShown: false
