@@ -2,6 +2,7 @@
 
 - [Login](#login)
 - [Event listing](#event-listing)
+- [Specific event listing](#specific-event-listing)
 
 ## Login
 
@@ -83,5 +84,57 @@
 ```json
 {
   "error": "Invalid token"
+}
+```
+
+## Specific event listing
+
+**HTTP method:** `GET`
+
+**Endpoint:** `/events/:id`
+
+**Description:** Endpoint used to list a specific registered event, the event id must be provided through route params. The user must provide the authentication token to access the endpoint, no request body is necessary.
+
+The possible responses to the endpoint `/events/1` is shown below. Will return an error if provided an invalid event id.
+
+### Successful Response (`200 OK`):
+
+```json
+{
+  "id": 1,
+  "type": "Palestra",
+  "name": "Visões de Futuro – Nossa Vida Pessoal com IA",
+  "description": null,
+  "start_time": "2020-10-16T17:00:00.000Z",
+  "location": "Auditório Principal - Prédio A",
+  "speakers": [
+    {
+      "name": "Fulano da Silva",
+      "email": "fulano@fei.edu.br",
+      "linkedin_url": "https://www.linkedin.com/in/fulano/",
+      "lattes_url": "http://lattes.cnpq.br/24642367243562"
+    }
+  ],
+  "categories": [
+    "Ciência da Computação",
+    "Administração",
+    "Engenharia Elétrica"
+  ]
+}
+```
+
+### Failed Response (`401 Unauthorized`):
+
+```json
+{
+  "error": "Invalid token"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "No event was found"
 }
 ```

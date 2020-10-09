@@ -1,16 +1,13 @@
 import { Router } from 'express';
 import ensureAuthenticationMiddleware from '../middlewares/ensureAuthentication';
-import ListEventsService from '../services/ListEventsService';
+import EventsController from '../controllers/EventsController';
+
+const eventsController = new EventsController();
 
 const eventsRouter = Router();
 eventsRouter.use(ensureAuthenticationMiddleware);
 
-eventsRouter.get('/', async (request, response) => {
-  const listEventsService = new ListEventsService();
-
-  const events = await listEventsService.execute();
-
-  return response.json(events);
-});
+eventsRouter.get('/', eventsController.index);
+eventsRouter.get('/:id', eventsController.show);
 
 export default eventsRouter;

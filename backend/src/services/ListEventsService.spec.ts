@@ -44,4 +44,41 @@ describe('ListEvents', () => {
     expect(response.body[0]).toHaveProperty('speakers');
     expect(response.body[0]).toHaveProperty('categories');
   });
+
+  it('should list one event if id is provided', async () => {
+    const authResponse = await request(app).post('/sessions').send({
+      username: 'unifulano',
+      password: '123456',
+    });
+
+    const { token } = authResponse.body as AuthenticationResponse;
+
+    const response = await request(app)
+      .get('/events/2')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.body).toHaveProperty('id', 2);
+    expect(response.body).toHaveProperty('type');
+    expect(response.body).toHaveProperty('name');
+    expect(response.body).toHaveProperty('description');
+    expect(response.body).toHaveProperty('start_time');
+    expect(response.body).toHaveProperty('location');
+    expect(response.body).toHaveProperty('speakers');
+    expect(response.body).toHaveProperty('categories');
+  });
+
+  it('should throw an error if provided event id does not exists', async () => {
+    const authResponse = await request(app).post('/sessions').send({
+      username: 'unifulano',
+      password: '123456',
+    });
+
+    const { token } = authResponse.body as AuthenticationResponse;
+
+    const response = await request(app)
+      .get('/events/30')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.body).toHaveProperty('error');
+  });
 });
