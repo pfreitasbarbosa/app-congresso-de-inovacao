@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import {RFValue} from "react-native-responsive-fontsize";
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -17,42 +18,66 @@ export default class EventCard extends React.Component{
                 <Text style={styles.eventType}>{this.props.eventType}</Text>
                 <Text style={styles.eventDate}>{this.props.eventDate}</Text>
             </View>
-            <Text style={styles.eventDate}>{this.props.eventName}</Text>
+            <Text style={styles.eventName}>{this.props.eventName}</Text>
+            <Text style={styles.eventDescription}>{this.props.eventDescription}</Text>
             <Text style={styles.eventLocal}>{this.props.eventLocal}</Text>
          </View>
-    );
+      );
+    }
   }
-}
 
 const styles = StyleSheet.create({
     cardContainer:{
-        flexDirection: "column",
-        justifyContent: "space-between",
-        backgroundColor: '#F8F8F8',
-        width: windowWidth*.92,
-        height: windowHeight*.15,
-        padding: "3%",
-        marginTop: "3%",
-        borderRadius: 4,
-      },
+      flexDirection: "column",
+      justifyContent: "space-between",
+      backgroundColor: '#FFF',
+      width: windowWidth*.92,
+      height: "auto",
+      minHeight: windowHeight*.15,
+      marginTop: "3%",
+      borderRadius: 7,
+      overflow: "hidden",
+    },
+
     cardHeader:{
-        flexDirection: "row",
-        justifyContent: "space-between",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      backgroundColor: "#FD3155",
+      paddingHorizontal: "3%",
+      paddingVertical:"1.8%",
     },
+
     eventType:{
-        fontSize: 14,
-        fontFamily: "OpenSans-SemiBold",
-        color: "#101838",
+        fontSize: RFValue(18),
+        fontFamily: "Sofia-Bold",
+        color: "#FFF",
     },
+
     eventDate:{
-        fontSize: 14,
-        fontFamily: "OpenSans-Regular",
-        color: "#000000",
+        fontSize: RFValue(17),
+        fontFamily: "Sofia-Medium",
+        color: "#FFF",
     },
+
+    eventName:{
+      fontSize: RFValue(18),
+      fontFamily: "Sofia-Medium",
+      color: "#000000",
+      padding: "2%",
+    },
+    
     eventLocal:{
-        fontSize: 14,
-        fontFamily: "OpenSans-SemiBold",
-        color: "#EF0432",
-    }
+      fontSize: RFValue(17),
+      fontFamily: "Sofia-Regular",
+      color: "#FF5A7B",
+      paddingHorizontal: "2%",
+      paddingVertical: "1%",
+    },
+
+    eventDescription:{
+      fontSize: RFValue(17),
+      fontFamily: "Sofia-Regular",
+      padding: "2%",
+  },
 });
   
