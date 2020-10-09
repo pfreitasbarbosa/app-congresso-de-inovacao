@@ -3,6 +3,8 @@
 - [Login](#login)
 - [Event listing](#event-listing)
 - [Specific event listing](#specific-event-listing)
+- [Event subscription](#event-subscription)
+- [Event unsubscription](#event-unsubscription)
 
 ## Login
 
@@ -60,8 +62,9 @@
     "type": "Palestra",
     "name": "Visões de Futuro – Nossa Vida Pessoal com IA",
     "description": null,
-    "start_time": "2020-10-16T17:00:00.000Z",
+    "start_time": "2020-11-16T17:00:00.000Z",
     "location": "Auditório Principal - Prédio A",
+    "end_time": "2020-11-16T17:20:00.000Z",
     "speakers": [
       {
         "name": "Fulano da Silva",
@@ -74,17 +77,11 @@
       "Ciência da Computação",
       "Administração",
       "Engenharia Elétrica"
-    ]
+    ],
+    "subscribed": false,
+    "confirmed": false
   }
 ]
-```
-
-### Failed Response (`401 Unauthorized`):
-
-```json
-{
-  "error": "Invalid token"
-}
 ```
 
 ## Specific event listing
@@ -136,5 +133,111 @@ The possible responses to the endpoint `/events/1` is shown below. Will return a
 ```json
 {
   "error": "No event was found"
+}
+```
+
+### Failed Response (`401 Unauthorized`):
+
+```json
+{
+  "error": "Invalid token"
+}
+```
+
+## Event subscription
+
+**HTTP method:** `POST`
+
+**Endpoint:** `/events/subscribe/:id`
+
+**Description:** Endpoint used to subscribe to an event, the user must provide the authentication token to access this route and the event id (integer) must be provided through route parameters.
+
+Will result an error if the user try to subscribe into: an event that the user already subscribed for, an event that already ended, an event at the same time of another that the user is subscribed for or a non existing event.
+
+### Successful Response (`201 Created`):
+
+```json
+{
+  "subscriptionId": 23
+}
+```
+
+### Failed Response (`401 Unauthorized`):
+
+```json
+{
+  "error": "Invalid token"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "User already subscribed to that event"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "Can't subscribe to a past event"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "User already subscribed to an event in that hour"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "There is no event with provided id"
+}
+```
+
+## Event unsubscription
+
+**HTTP method:** `POST`
+
+**Endpoint:** `/events/unsubscribe/:id`
+
+**Description:** Endpoint used to unsubscribe to an event, the user must provide the authentication token to access this route and the event id (integer) must be provided through route parameters.
+
+Will result an error if the user try to unsubscribe into: an event that the user did not subscribed for, an event that already ended, or a non existing event. In case of success, there is no response body.
+
+### Successful Response (`200 OK`):
+
+```json
+
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "Can't unsubscribe to an event you haven't subscribed to"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "Can't unsubscribe to a past event"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "There is no event with provided id"
 }
 ```

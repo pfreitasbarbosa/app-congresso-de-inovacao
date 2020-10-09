@@ -6,7 +6,9 @@ class EventsController {
     try {
       const listEventsService = new ListEventsService();
 
-      const events = await listEventsService.execute();
+      const events = await listEventsService.execute({
+        userId: request.user.id,
+      });
 
       return response.json(events);
     } catch (err) {
@@ -22,7 +24,10 @@ class EventsController {
 
       const listEventsService = new ListEventsService();
 
-      const [event] = await listEventsService.execute({ id: parsedId });
+      const [event] = await listEventsService.execute({
+        id: parsedId,
+        userId: request.user.id,
+      });
 
       return response.json(event);
     } catch (err) {

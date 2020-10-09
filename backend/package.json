@@ -8,12 +8,14 @@
     "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
     "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback",
+    "knex:migrate:rollback:all": "knex --knexfile knexfile.ts migrate:rollback --all",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
     "pretest": "rm -f src/database/database.sqlite && NODE_ENV=test knex --knexfile knexfile.ts migrate:latest && NODE_ENV=test knex --knexfile knexfile.ts seed:run",
     "test": "NODE_ENV=test jest --runInBand --forceExit"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

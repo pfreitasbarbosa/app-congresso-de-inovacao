@@ -43,6 +43,8 @@ describe('ListEvents', () => {
     expect(response.body[0]).toHaveProperty('location');
     expect(response.body[0]).toHaveProperty('speakers');
     expect(response.body[0]).toHaveProperty('categories');
+    expect(response.body[0]).toHaveProperty('confirmed');
+    expect(response.body[0]).toHaveProperty('subscribed');
   });
 
   it('should list one event if id is provided', async () => {
