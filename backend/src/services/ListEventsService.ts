@@ -2,14 +2,24 @@ import db from '../database/connection';
 
 interface Request {
   id?: number;
+  userId: number;
 }
-
 interface Event {
   id: number;
   name: string;
   description: string;
   start_time: Date;
+  end_time: Date;
   location: string;
+}
+
+interface Subscription {
+  id: number;
+  event_id: number;
+  user_id: number;
+  event_start: Date;
+  event_end: Date;
+  confirmed: boolean;
 }
 
 interface Events_Speakers {
@@ -46,13 +56,16 @@ interface Response {
   name: string;
   description: string | null;
   start_time: Date;
+  end_time: Date;
+  subscribed: boolean;
+  confirmed: boolean;
   location: string;
   speakers: Pick<Speaker, 'name' | 'email' | 'linkedin_url' | 'lattes_url'>[];
   categories: string[];
 }
 
 class ListEventsService {
-  public async execute(payload?: Request): Promise<Response[]> {
+  public async execute(payload: Request): Promise<Response[]> {
     let events: Event[];
 
     if (payload && payload.id) {
@@ -124,7 +137,30 @@ class ListEventsService {
       return { ...event, categories: eventCategories };
     });
 
-    return eventsWithSpeakersAndCategories;
+    const subscribedEvents = await db
+      .select('event_id', 'confirmed')
+      .from<Subscription>('events_subscriptions')
+      .where('user_id', payload.userId);
+
+    const eventsWithSpeakersCategoriesAndSubscriptions = eventsWithSpeakersAndCategories.map(
+      event => {
+        const subscribedEvent = subscribedEvents.find(
+          element => element.event_id === event.id,
+        );
+
+        if (subscribedEvent) {
+          return {
+            ...event,
+            subscribed: true,
+            confirmed: subscribedEvent.confirmed,
+          };
+        }
+
+        return { ...event, subscribed: false, confirmed: false };
+      },
+    );
+
+    return eventsWithSpeakersCategoriesAndSubscriptions;
   }
 }
 
