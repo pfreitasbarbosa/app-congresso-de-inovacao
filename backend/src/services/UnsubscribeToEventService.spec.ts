@@ -79,13 +79,37 @@ describe('Event unsubscription', () => {
     const { token } = authResponse.body as AuthenticationResponse;
 
     await request(app)
+      .post('/events/subscribe/3')
+      .set('Authorization', `Bearer ${token}`);
+
+    const response = await request(app)
+      .post('/events/unsubscribe/3')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+  });
+
+  it('should not be able to unsubscribe if presence was confirmed', async () => {
+    const authResponse = await request(app).post('/sessions').send({
+      username: 'unibeltrano',
+      password: '123456',
+    });
+
+    const { token } = authResponse.body as AuthenticationResponse;
+
+    await request(app)
       .post('/events/subscribe/1')
+      .set('Authorization', `Bearer ${token}`);
+
+    await request(app)
+      .post('/events/presence/1')
       .set('Authorization', `Bearer ${token}`);
 
     const response = await request(app)
       .post('/events/unsubscribe/1')
       .set('Authorization', `Bearer ${token}`);
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('error');
   });
 });

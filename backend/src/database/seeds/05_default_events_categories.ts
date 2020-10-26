@@ -50,5 +50,13 @@ export async function seed(knex: Knex): Promise<void> {
       event_id: 5,
       category_id: 3,
     },
+    {
+      event_id: 6,
+      category_id: 1,
+    },
+    {
+      event_id: 6,
+      category_id: 3,
+    },
   ]);
 }

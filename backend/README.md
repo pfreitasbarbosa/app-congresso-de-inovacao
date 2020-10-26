@@ -84,6 +84,14 @@
 ]
 ```
 
+### Failed Response (`401 Unauthorized`):
+
+```json
+{
+  "error": "Invalid token"
+}
+```
+
 ## Specific event listing
 
 **HTTP method:** `GET`
@@ -133,14 +141,6 @@ The possible responses to the endpoint `/events/1` is shown below. Will return a
 ```json
 {
   "error": "No event was found"
-}
-```
-
-### Failed Response (`401 Unauthorized`):
-
-```json
-{
-  "error": "Invalid token"
 }
 ```
 

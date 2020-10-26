@@ -8,6 +8,7 @@ interface Subscription {
   user_id: number;
   event_start: Date;
   event_end: Date;
+  confirmed: boolean;
 }
 
 interface Event {
@@ -50,6 +51,10 @@ class UnsubscribeToEventService {
 
     if (isAfter(new Date(), subscribedEvent.event_end)) {
       throw new Error("Can't unsubscribe to a past event");
+    }
+
+    if (subscribedEvent.confirmed) {
+      throw new Error("Can't unsubscribe if presence was confirmed");
     }
 
     await db('events_subscriptions')
