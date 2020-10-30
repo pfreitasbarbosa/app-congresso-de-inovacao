@@ -1,4 +1,6 @@
 import request from 'supertest';
+import { subMinutes } from 'date-fns';
+import db from '../database/connection';
 import app from '../app';
 
 interface User {
@@ -12,6 +14,24 @@ interface User {
 interface AuthenticationResponse {
   user: User;
   token: string;
+}
+
+interface Event {
+  id: number;
+  name: string;
+  description: string | null;
+  start_time: Date;
+  end_time: Date;
+  location: string;
+}
+
+interface Subscription {
+  id: number;
+  event_id: number;
+  user_id: number;
+  event_start: Date;
+  event_end: Date;
+  confirmed: boolean;
 }
 
 describe('Event unsubscription', () => {
@@ -101,9 +121,20 @@ describe('Event unsubscription', () => {
       .post('/events/subscribe/1')
       .set('Authorization', `Bearer ${token}`);
 
-    await request(app)
-      .post('/events/presence/1')
-      .set('Authorization', `Bearer ${token}`);
+    const [{ start_time: previousStartTime }] = await db
+      .select('start_time')
+      .from<Event>('events')
+      .where('id', 1);
+
+    await db
+      .from<Subscription>('events_subscriptions')
+      .where({
+        user_id: 3,
+        event_id: 1,
+      })
+      .update({
+        confirmed: true,
+      });
 
     const response = await request(app)
       .post('/events/unsubscribe/1')
@@ -111,5 +142,16 @@ describe('Event unsubscription', () => {
 
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty('error');
+
+    await db
+      .from<Subscription>('events_subscriptions')
+      .where({
+        user_id: 3,
+        event_id: 1,
+      })
+      .update({
+        event_start: previousStartTime,
+        confirmed: false,
+      });
   });
 });

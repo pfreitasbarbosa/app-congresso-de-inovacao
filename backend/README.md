@@ -261,7 +261,7 @@ Will result an error if the user try to unsubscribe into: an event that the user
 
 **Description:** Endpoint used to confirm presence to an event, the user must provide the authentication token to access this route and the event id (integer) must be provided through route parameters.
 
-Will result an error if the user try to confirm presence into: an event that the user did not subscribe for, an event that the presence is already confirmed, an ongoing/past event or a non existing event. In case of success, there is no response body.
+Will result an error if the user try to confirm presence into: an event that the user did not subscribe for, an event that the presence is already confirmed, an ongoing/past event, an event that does not accepts confirmations (can only confirm presence 30 minutes before the event starts) or a non existing event. In case of success, there is no response body.
 
 ### Successful Response (`201 Created`):
 
@@ -297,6 +297,14 @@ Will result an error if the user try to confirm presence into: an event that the
 ```json
 {
   "error": "Can't confirm presence in an ongoing or past event"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "Presence confirmation is only available 30 minutes before the event start"
 }
 ```
 

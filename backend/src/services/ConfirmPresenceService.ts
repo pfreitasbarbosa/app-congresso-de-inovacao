@@ -1,4 +1,4 @@
-import { isAfter } from 'date-fns';
+import { isAfter, subMinutes, isBefore, parseISO } from 'date-fns';
 
 import db from '../database/connection';
 
@@ -50,8 +50,19 @@ class ConfirmPresenceService {
       throw new Error("User's presence was already confirmed");
     }
 
-    if (isAfter(new Date(), userSubscription.event_start)) {
+    if (isAfter(new Date(), new Date(userSubscription.event_start))) {
       throw new Error("Can't confirm presence in an ongoing or past event");
+    }
+
+    if (
+      isBefore(
+        new Date(),
+        subMinutes(new Date(userSubscription.event_start), 30),
+      )
+    ) {
+      throw new Error(
+        'Presence confirmation is only available 30 minutes before the event start',
+      );
     }
 
     await db
