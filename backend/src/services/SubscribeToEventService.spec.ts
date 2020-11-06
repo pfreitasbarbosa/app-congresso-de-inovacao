@@ -47,7 +47,7 @@ describe('Event subscription', () => {
     const { token } = authResponse.body as AuthenticationResponse;
 
     const response = await request(app)
-      .post('/events/subscribe/1')
+      .post('/events/subscribe/2')
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(201);

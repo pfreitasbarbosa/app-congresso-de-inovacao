@@ -8,5 +8,11 @@ export async function seed(knex: Knex): Promise<void> {
       event_start: new Date(2019, 10, 18, 17, 30, 0, 0),
       event_end: new Date(2019, 10, 18, 21, 0, 0, 0),
     },
+    {
+      event_id: 6,
+      user_id: 2,
+      event_start: new Date(2019, 10, 19, 17, 30, 0, 0),
+      event_end: new Date(2019, 10, 19, 21, 0, 0, 0),
+    },
   ]);
 }

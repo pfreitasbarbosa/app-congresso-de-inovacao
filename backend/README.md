@@ -5,6 +5,7 @@
 - [Specific event listing](#specific-event-listing)
 - [Event subscription](#event-subscription)
 - [Event unsubscription](#event-unsubscription)
+- [Event presence confirmation](#event-presence-confirmation)
 
 ## Login
 
@@ -84,6 +85,14 @@
 ]
 ```
 
+### Failed Response (`401 Unauthorized`):
+
+```json
+{
+  "error": "Invalid token"
+}
+```
+
 ## Specific event listing
 
 **HTTP method:** `GET`
@@ -116,7 +125,9 @@ The possible responses to the endpoint `/events/1` is shown below. Will return a
     "Ciência da Computação",
     "Administração",
     "Engenharia Elétrica"
-  ]
+  ],
+  "subscribed": false,
+  "confirmed": false
 }
 ```
 
@@ -133,14 +144,6 @@ The possible responses to the endpoint `/events/1` is shown below. Will return a
 ```json
 {
   "error": "No event was found"
-}
-```
-
-### Failed Response (`401 Unauthorized`):
-
-```json
-{
-  "error": "Invalid token"
 }
 ```
 
@@ -210,7 +213,7 @@ Will result an error if the user try to subscribe into: an event that the user a
 
 **Description:** Endpoint used to unsubscribe to an event, the user must provide the authentication token to access this route and the event id (integer) must be provided through route parameters.
 
-Will result an error if the user try to unsubscribe into: an event that the user did not subscribed for, an event that already ended, or a non existing event. In case of success, there is no response body.
+Will result an error if the user try to unsubscribe into: an event that the user did not subscribe for, an event that already ended, a non existing event or if presence was already confirmed. In case of success, there is no response body.
 
 ### Successful Response (`200 OK`):
 
@@ -231,6 +234,77 @@ Will result an error if the user try to unsubscribe into: an event that the user
 ```json
 {
   "error": "Can't unsubscribe to a past event"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "There is no event with provided id"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "Can't unsubscribe if presence was confirmed"
+}
+```
+
+## Event presence confirmation
+
+**HTTP method:** `POST`
+
+**Endpoint:** `/events/presence/:id`
+
+**Description:** Endpoint used to confirm presence to an event, the user must provide the authentication token to access this route and the event id (integer) must be provided through route parameters.
+
+Will result an error if the user try to confirm presence into: an event that the user did not subscribe for, an event that the presence is already confirmed, an ongoing/past event, an event that does not accepts confirmations (can only confirm presence 30 minutes before the event starts) or a non existing event. In case of success, there is no response body.
+
+### Successful Response (`201 Created`):
+
+```json
+{
+  "id": 5,
+  "event_id": 1,
+  "user_id": 1,
+  "event_start": "2021-11-16T17:00:00.000Z",
+  "event_end": "2021-11-16T17:20:00.000Z",
+  "confirmed": true
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "User is not subscribed to this event"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "User's presence was already confirmed"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "Can't confirm presence in an ongoing or past event"
+}
+```
+
+### Failed Response (`400 Bad Request`):
+
+```json
+{
+  "error": "Presence confirmation is only available 30 minutes before the event start"
 }
 ```
 
